@@ -36,7 +36,7 @@ public class LoanController {
     }
 
     @GetMapping("/active/{userId}")
-    public List<Loan> getActiveLoans(@PathVariable Long userId) {
+    public List<LoanDTO> getActiveLoans(@PathVariable Long userId) {
         return loanService.getActiveLoans(userId);
     }
 

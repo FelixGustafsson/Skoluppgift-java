@@ -71,9 +71,12 @@ public class LoanService {
         );
     }
 
-    public List<Loan> getActiveLoans(Long userId) {
+    public List<LoanDTO> getActiveLoans(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
-        return loanRepository.findByUserAndReturnedDateIsNull(user);
+        List<Loan> allUserActiveLoans= loanRepository.findByUserAndReturnedDateIsNull(user);
+        return allUserActiveLoans.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public List<LoanDTO> getAllActiveLoans() {

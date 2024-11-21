@@ -55,7 +55,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }
         if (userRepository.findById(userId).isPresent()) {
-            return ResponseEntity.ok(userService.updateUser(user));
+            return ResponseEntity.ok(userService.updateUser(userId, user));
         } else {
             return ResponseEntity.notFound().build();
         }

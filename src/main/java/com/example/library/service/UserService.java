@@ -31,8 +31,14 @@ public class UserService {
         return user;
     }
 
-    public User updateUser(User user) {
-        return userRepository.save(user);
+    public User updateUser(Long userId, User user) {
+        User userToUpdate = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        userToUpdate.setFirstName(user.getFirstName());
+        userToUpdate.setLastName(user.getLastName());
+        userToUpdate.setEmail(user.getEmail());
+        userToUpdate.setMemberNumber(user.getMemberNumber());
+        userToUpdate.setLoans(user.getLoans());
+        return userRepository.save(userToUpdate);
     }
 
     public List<LoanDTO> getAllUserLoans(Long userId) {
